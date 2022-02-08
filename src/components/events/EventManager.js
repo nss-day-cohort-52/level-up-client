@@ -26,3 +26,22 @@ export const getGames = () => {
   })
     .then(res => res.json())
 }
+
+export const getEvent = (eventId) => {
+  return fetch(`http://localhost:8000/events/${eventId}`, {
+    headers: {
+      'Authorization': `Token ${localStorage.getItem('lu_token')}`
+    }
+  }).then(res => res.json())
+}
+
+export const updateEvent = (event) => {
+  return fetch(`http://localhost:8000/events/${event.id}`, {
+    method: "PUT",
+    headers: {
+      "Authorization": `Token ${localStorage.getItem("lu_token")}`,
+      'Content-Type': "application/json"
+    },
+    body: JSON.stringify(event)
+  })
+}

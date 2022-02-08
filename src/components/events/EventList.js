@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useHistory } from "react-router-dom"
+import { useHistory, Link } from "react-router-dom"
 import { getEvents } from "./EventManager.js"
 
 export const EventList = (props) => {
@@ -25,6 +25,7 @@ export const EventList = (props) => {
 
               {event.description}
               {event.date} at {event.time}
+              <Link className="btn" to={`/events/${event.id}/update`}>Edit Event</Link>
             </section>
           )
         })
