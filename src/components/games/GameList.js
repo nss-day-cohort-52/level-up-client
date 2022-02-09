@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react"
 import { useHistory, Link } from "react-router-dom"
-import { getGames } from "./GameManager.js"
+import { deleteGame, getGames } from "./GameManager.js"
 
 export const GameList = (props) => {
   const history = useHistory()
   const [games, setGames] = useState([])
 
+  const getAllTheGames = () => getGames().then(data => setGames(data))
+
   useEffect(() => {
-    getGames().then(data => setGames(data))
+    getAllTheGames()
   }, [])
 
   return (
@@ -24,6 +26,9 @@ export const GameList = (props) => {
             <div className="game__players">{game.number_of_players} players needed</div>
             <div className="game__skillLevel">Skill level is {game.skill_level}</div>
             <Link className="btn" to={`/games/${game.id}/update`}>Edit Game</Link>
+            <button onClick={() => {
+              deleteGame(game.id).then(getAllTheGames)
+            }}>Destroy Game</button>
           </section>
         })
       }
