@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useHistory, Link } from "react-router-dom"
-import { deleteEvent, getEvents } from "./EventManager.js"
+import { deleteEvent, getEvents, leaveEvent, joinEvent } from "./EventManager.js"
 
 export const EventList = (props) => {
   const [events, setEvents] = useState([])
@@ -31,6 +31,23 @@ export const EventList = (props) => {
               <button onClick={() => {
                 deleteEvent(event.id).then(getAllTheEvents)
               }}>Destroy Event</button>
+              {
+                event.joined
+                ?
+                // Leave button
+                <button onClick={() => {
+                  leaveEvent(event.id).then(getAllTheEvents)
+                }}>
+                  Leave Event
+                </button>
+                :
+                // join button
+                <button onClick={() => {
+                  joinEvent(event.id).then(getAllTheEvents)
+                }}>
+                  Join Event
+                </button>
+              }
             </section>
           )
         })
